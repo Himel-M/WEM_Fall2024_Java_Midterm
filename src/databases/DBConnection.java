@@ -4,51 +4,53 @@ import java.io.IOException;
 import java.sql.*;
 
 public class DBConnection {
-    public static void main(String[] args) throws SQLException, IOException, ClassNotFoundException {}
-     public static void DBConnection(){
-        Connection conn = null;
-        Statement stmt = null;
+
+    // JDBC driver name and database URL
+    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    static final String DB_URL = "jdbc:mysql://localhost/classicmodels";
+
+    // Database credentials
+    static final String USER = "root";
+    static final String PASS = ""; //add your password
+
+    public static void main(String[] args) {
 
 
         try {
             // Register JDBC driver
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName(JDBC_DRIVER);
 
             // Open a connection
-            // Please input your own username and password
             System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pnt", "", "");
+            Connection conn =  DriverManager.getConnection(DB_URL, USER, PASS);
 
             // Execute a query
             System.out.println("Creating statement...");
-            stmt = conn.createStatement();
+            Statement stmt =  conn.createStatement();
             String sql;
-            // Please write a SQL query to first_name, last_name and email values from employees table
-            sql = "";
+            //search for two more columns of your choice from employees table
+            sql = "SELECT lastName, firstName, email FROM employees";
             ResultSet rs = stmt.executeQuery(sql);
 
             // Process the result set
             while (rs.next()) {
                 // Retrieve by column name
-                String first_name = rs.getString("");
-                String last_name = rs.getString("");
-                String  email = rs.getString("");
+                String lastName = rs.getString("lastName");
+                String firstName = rs.getString("firstName");
+                String email = rs.getString("email");
+
 
                 // Display values
-
-                System.out.print("FirstName: \n" + first_name);
-                System.out.print(", \nLastName: \n" + last_name);
-                System.out.print(", \nEmail:" + email);
-
-                System.out.println("\n------------------------------------------------------------------");
+                System.out.print("lastName: " + lastName);
+                System.out.print(", firstName: " + firstName);
+                System.out.println(", email: " + email);
             }
 
-            // Insert five record into the employees table
+            // Insert a record
             System.out.println("Inserting a record...");
-            sql = "INSERT INTO .... complete the statement" +
-                    " VALUES ..... complete the statement";
-
-
+            //insert a value using your own record
+            // example: "INSERT INTO employees (employeeNumber, lastName, firstName, email, extension, officeCode,jobTitle) VALUES (1001,'Ahmed', 'Monsur', 'email@email.com','x7546',1,'Press Secretary')";
+            sql ="" ;
             stmt.executeUpdate(sql);
             System.out.println("Record inserted successfully.");
 
@@ -63,17 +65,8 @@ public class DBConnection {
             // Handle errors for Class.forName
             e.printStackTrace();
         } finally {
-            // Finally block used to close resources
-            try {
-                if (stmt != null) stmt.close();
-            } catch (SQLException se2) {
-            } // nothing we can do
-            try {
-                if (conn != null) conn.close();
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }
+            System.out.println("Goodbye!");
         }
-        System.out.println("Goodbye!");
     }
+
 }
