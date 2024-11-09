@@ -8,7 +8,7 @@ public class UseArrayList {
 
     public static void main(String[] args) {
         /*
-         * Demonstrate how to use ArrayList that includes add,peek,remove,retrieve elements.
+         * Demonstrate how to use ArrayList that includes add,remove,retrieve elements.
          * Use For Each loop and while loop with Iterator to retrieve data.
          *
          */
